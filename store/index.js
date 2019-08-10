@@ -1,7 +1,8 @@
 export const state = () => ({
   brandName: '',
   brandLogo: '',
-  myApps: []
+  myApps: [],
+  myLocation: null
 })
 
 export const mutations = {
@@ -9,6 +10,9 @@ export const mutations = {
     state.brandName = data.brand_name
     state.brandLogo = data.brand_logo
     state.myApps = [...data.departments]
+  },
+  setLocation (state, data) {
+    state.myLocation = data
   }
 }
 

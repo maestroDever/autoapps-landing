@@ -81,7 +81,7 @@ export default {
   },
   data () {
     return {
-      myLocation: {}
+      isSortbyDistance: false
     }
   },
   computed: {
@@ -98,31 +98,28 @@ export default {
   mounted () {
     if (navigator.geolocation) {
       const locationTimeout = setTimeout(() => {
-        this.myLocation = null
+        this.$store.commit('setLocation', null)
       }, 10000)
 
       navigator.geolocation.getCurrentPosition((position) => {
         clearTimeout(locationTimeout)
 
-        this.myLocation = {
+        this.$store.commit('setLocation', {
           latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-          formatted_address: 'Got it'
-        }
-        // this.getAddress(position.coords.latitude, position.coords.longitude)
+          longitude: position.coords.longitude
+        })
+        this.isSortbyDistance = true
       }, () => {
         clearTimeout(locationTimeout)
-        this.myLocation = null
+        this.$store.commit('setLocation', null)
       })
     } else {
       // Fallback for no geolocation
-      this.myLocation = null
+      this.$store.commit('setLocation', null)
     }
   },
   methods: {
-    test () {
-      console.log(this.myLocation)
-    }
+
   }
 }
 </script>
