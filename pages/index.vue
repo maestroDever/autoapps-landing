@@ -39,10 +39,11 @@
           <span class="is-pulled-right" style="padding-top: 1rem;">
             <input
               id="isDistanceSort"
+              v-model="isSortbyDistance"
               type="checkbox"
               class="switch is-rounded is-medium is-info"
               name="isDistanceSort"
-              @input="test"
+              :disabled="$store.state.myLocation === null"
             >
             <label for="isDistanceSort" />
           </span>
