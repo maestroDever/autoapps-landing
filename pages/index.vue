@@ -37,7 +37,13 @@
             Vis nærmeste først
           </h3>
           <span class="is-pulled-right" style="padding-top: 1rem;">
-            <input id="isDistanceSort" type="checkbox" class="switch is-rounded is-medium is-info" name="isDistanceSort">
+            <input
+              id="isDistanceSort"
+              type="checkbox"
+              class="switch is-rounded is-medium is-info"
+              name="isDistanceSort"
+              @input="test"
+            >
             <label for="isDistanceSort" />
           </span>
         </div>
@@ -73,6 +79,11 @@ export default {
   components: {
     AppComponent
   },
+  data () {
+    return {
+      myLocation: {}
+    }
+  },
   computed: {
     appList () {
       return this.$store.state.myApps
@@ -84,6 +95,35 @@ export default {
         console.log('haha', res.data)
         store.commit('setAppList', res.data.data)
       })
+  },
+  mounted () {
+    if (navigator.geolocation) {
+      const locationTimeout = setTimeout(() => {
+        this.myLocation = null
+      }, 10000)
+
+      navigator.geolocation.getCurrentPosition((position) => {
+        clearTimeout(locationTimeout)
+
+        this.myLocation = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          formatted_address: 'Got it'
+        }
+        // this.getAddress(position.coords.latitude, position.coords.longitude)
+      }, () => {
+        clearTimeout(locationTimeout)
+        this.myLocation = null
+      })
+    } else {
+      // Fallback for no geolocation
+      this.myLocation = null
+    }
+  },
+  methods: {
+    test () {
+      console.log(this.myLocation)
+    }
   }
 }
 </script>
