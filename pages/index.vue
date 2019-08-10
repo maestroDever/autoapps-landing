@@ -55,11 +55,11 @@
     <section class="section no-padding-top">
       <ul class="list">
         <li
-          v-for="(item, index) in 5"
+          v-for="(item, index) in appList"
           :key="index"
           class="list-item is-relative"
         >
-          <app-component />
+          <app-component :app-item="item" />
         </li>
       </ul>
     </section>
@@ -67,10 +67,23 @@
 </template>
 
 <script>
+import axios from 'axios'
 import AppComponent from '../components/AppComponent.vue'
 export default {
   components: {
     AppComponent
+  },
+  computed: {
+    appList () {
+      return this.$store.state.myApps
+    }
+  },
+  fetch ({ store }) {
+    return axios.get('https://reqres.in/api/users?page=2')
+      .then((res) => {
+        console.log('haha', res.data)
+        store.commit('setAppList', res.data.data)
+      })
   }
 }
 </script>
