@@ -1,9 +1,18 @@
 <template>
   <div class="columns is-mobile is-tablet" style="cursor: pointer;">
-    <div class="column is-one-quarter">
+    <div class="column is-one-quarter is-hidden-tablet">
       <figure class="image">
         <img
-          class="image is-inline-block logo--image"
+          class="image"
+          :src="appItem.app_icon"
+          alt="logo"
+        >
+      </figure>
+    </div>
+    <div class="column is-hidden-mobile is-2">
+      <figure class="image">
+        <img
+          class="image"
           :src="appItem.app_icon"
           alt="logo"
         >
