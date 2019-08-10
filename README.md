@@ -2,6 +2,10 @@
 
 > Finding Mobile Apps - Landing Page for Auto Apps
 
+## Static page for presentation
+
+https://landing-autoapps.surge.sh
+
 ## Build Setup
 
 ``` bash
