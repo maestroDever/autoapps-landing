@@ -1,0 +1,64 @@
+@font-face {font-family: "SuzukiPRORegular";
+  src: url("./SuzukiPRORegular.ttf") format("truetype");
+}
+
+$skyblue: #009bde;
+$bg-darkblue: #004059;
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: "SuzukiPRORegular";
+}
+
+.image {
+  .is-64x64 {
+    width: 6.4rem;
+    height: 6.4rem;
+  }
+}
+
+.is-spaced {
+  letter-spacing: .2rem;
+}
+
+.icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.section.small-padding {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.no-padding-top {
+  padding-top: 0 !important;
+}
+
+.padding-right-1 {
+  padding-right: 1rem;
+}
+.padding-right-2 {
+  padding-right: 2rem;
+}
+
+.padding-left-1 {
+  padding-left: 1rem;
+}
+.padding-left-2 {
+  padding-left: 2rem;
+}
+
+.color-skyblue {
+  color: $skyblue;
+}
+
+.bg-skyblue {
+  background-color: $skyblue;
+}
+.bg-darkblue {
+  background-color: $bg-darkblue;
+}
