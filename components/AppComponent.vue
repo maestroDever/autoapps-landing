@@ -1,11 +1,13 @@
 <template>
   <div class="columns is-mobile is-tablet">
     <div class="column is-one-quarter">
-      <img
-        class="image is-inline-block logo--image"
-        :src="appItem.avatar"
-        alt="logo"
-      >
+      <figure class="image">
+        <img
+          class="image is-inline-block logo--image"
+          :src="appItem.avatar"
+          alt="logo"
+        >
+      </figure>
     </div>
     <div class="column">
       <h3 class="title">
