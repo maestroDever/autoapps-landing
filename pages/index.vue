@@ -66,7 +66,10 @@
           :key="item.department_id"
           class="list-item is-relative"
         >
-          <app-component :app-item="item" />
+          <app-component
+            :app-item="item"
+            :show-distance="isSortbyDistance"
+          />
         </li>
       </ul>
     </section>
