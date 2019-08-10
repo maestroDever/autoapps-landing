@@ -3,7 +3,7 @@
     <div class="logo">
       <img
         class="image is-64x64 is-inline-block logo--image"
-        src="http://app.autoapps.dk/backend/api/image/2/2769242055645323260"
+        :src="$store.state.brandLogo"
         alt="logo"
       >
       <span class="image is-64x64 is-size-5 logo--text">
@@ -61,8 +61,8 @@
     <section class="section no-padding-top">
       <ul class="list">
         <li
-          v-for="(item, index) in appList"
-          :key="index"
+          v-for="item in appList"
+          :key="item.department_id"
           class="list-item is-relative"
         >
           <app-component :app-item="item" />
@@ -90,10 +90,9 @@ export default {
     }
   },
   fetch ({ store }) {
-    return axios.get('https://reqres.in/api/users?page=2')
+    return axios.get('http://139.162.255.138/backend/api/landing/suzuki/apps')
       .then((res) => {
-        console.log('haha', res.data)
-        store.commit('setAppList', res.data.data)
+        store.commit('setAppList', res.data)
       })
   },
   mounted () {

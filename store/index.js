@@ -1,21 +1,17 @@
 export const state = () => ({
+  brandName: '',
+  brandLogo: '',
   myApps: []
 })
 
 export const mutations = {
   setAppList (state, data) {
-    state.myApps = [...data]
+    state.brandName = data.brand_name
+    state.brandLogo = data.brand_logo
+    state.myApps = [...data.departments]
   }
 }
 
 export const actions = {
-  getInfo ({ commit }) {
-    this.$axios.$get('https://cors-anywhere.herokuapp.com/https://app.autoapps.dk/backend/api/landing/suzuki/apps')
-      .then((res) => {
-        console.log('res', res)
-      })
-      .catch((err) => {
-        console.log('err', err)
-      })
-  }
+
 }
