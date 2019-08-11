@@ -49,7 +49,6 @@
           </span>
         </div>
       </div>
-
       <div class="field">
         <div class="control has-icons-left">
           <input class="input is-large is-size-4" type="text" placeholder="Indtast postnummer">
@@ -100,6 +99,11 @@ export default {
       })
   },
   mounted () {
+    let deviceType = 'Desktop'
+    if (this.$device.isMobile || this.$device.isTablet) {
+      if (this.$device.isIos) { deviceType = 'Apple' } else { deviceType = 'Android' }
+    } else if (this.$device.isDesktop) { deviceType = 'Desktop' }
+    this.$store.commit('setDevice', deviceType)
     if (navigator.geolocation) {
       const locationTimeout = setTimeout(() => {
         this.$store.commit('setLocation', null)
