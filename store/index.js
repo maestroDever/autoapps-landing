@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 export const state = () => ({
   brandName: '',
   brandLogo: '',
@@ -21,5 +23,10 @@ export const mutations = {
 }
 
 export const actions = {
-
+  nuxtServerInit ({ commit }) {
+    return axios.get('http://139.162.255.138/backend/api/landing/suzuki/apps')
+      .then((res) => {
+        commit('setAppList', res.data)
+      })
+  }
 }

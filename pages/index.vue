@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import axios from 'axios'
 import AppComponent from '../components/AppComponent.vue'
 export default {
   components: {
@@ -92,18 +92,13 @@ export default {
       return this.$store.state.myApps
     }
   },
-  fetch ({ store }) {
-    return axios.get('http://139.162.255.138/backend/api/landing/suzuki/apps')
-      .then((res) => {
-        store.commit('setAppList', res.data)
-      })
-  },
   mounted () {
     let deviceType = 'Desktop'
     if (this.$device.isMobile || this.$device.isTablet) {
       if (this.$device.isIos) { deviceType = 'Apple' } else { deviceType = 'Android' }
     } else if (this.$device.isDesktop) { deviceType = 'Desktop' }
     this.$store.commit('setDevice', deviceType)
+
     if (navigator.geolocation) {
       const locationTimeout = setTimeout(() => {
         this.$store.commit('setLocation', null)
