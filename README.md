@@ -4,7 +4,7 @@
 
 ## Static page for presentation
 
-https://landing-autoapps.surge.sh
+https://autoapps-landing.checkthisout3413.now.sh
 
 ## Build Setup
 
