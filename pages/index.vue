@@ -65,10 +65,12 @@
           :key="item.department_id"
           class="list-item is-relative"
         >
-          <app-component
-            :app-item="item"
-            :show-distance="isSortbyDistance"
-          />
+          <nuxt-link :to="'/'+item.app_slug">
+            <app-component
+              :app-item="item"
+              :show-distance="isSortbyDistance"
+            />
+          </nuxt-link>
         </li>
       </ul>
     </section>
@@ -76,7 +78,6 @@
 </template>
 
 <script>
-// import axios from 'axios'
 import AppComponent from '../components/AppComponent.vue'
 export default {
   components: {
