@@ -6,7 +6,7 @@
         :src="$store.state.brandLogo"
         alt="logo"
       >
-      <span class="image is-64x64 is-size-5 logo--text">
+      <span class="image is-64x64 is-size-5 logo--text" style="letter-spacing: -1px;">
         Way of life!
       </span>
     </div>
