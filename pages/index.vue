@@ -168,6 +168,7 @@ export default {
 @import '../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css';
   #page-index {
     .logo {
+      font-family: "SuzukiPRORegular";
       &--image {
         position: absolute;
         left: .5rem;
@@ -183,6 +184,7 @@ export default {
       }
     }
     .hero {
+      font-family: "SuzukiPRORegular";
       &-head,
       &-foot {
         height: 5rem;
