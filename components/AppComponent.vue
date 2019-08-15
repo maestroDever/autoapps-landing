@@ -33,7 +33,7 @@
         {{ appItem.department_info.address }}
         {{ appItem.department_info.city }}
         <span v-if="showDistance" class="is-pulled-right">
-          1 km
+          {{ appItem.distance | toFixed }}
         </span>
       </p>
     </div>
@@ -43,6 +43,11 @@
 <script>
 export default {
   name: 'AppComponent',
+  filters: {
+    toFixed (value) {
+      if (value !== null) { return value.toFixed(2) }
+    }
+  },
   props: {
     appItem: {
       type: Object,

@@ -92,14 +92,17 @@ export default {
   components: {
     AppComponent
   },
-  data () {
-    return {
-      isSortbyDistance: false
-    }
-  },
   computed: {
     appList () {
-      return this.$store.state.myApps
+      return this.$store.getters.appList
+    },
+    isSortbyDistance: {
+      get () {
+        return this.$store.state.isSort
+      },
+      set (val) {
+        this.$store.commit('sortApp', val)
+      }
     }
   },
   mounted () {
@@ -120,11 +123,14 @@ export default {
 
       navigator.geolocation.getCurrentPosition((position) => {
         clearTimeout(locationTimeout)
+        console.log('position', position)
 
         this.$store.commit('setLocation', {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
+
+        this.$store.dispatch('getAppList')
         this.isSortbyDistance = true
       }, () => {
         clearTimeout(locationTimeout)
