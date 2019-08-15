@@ -1,6 +1,6 @@
 <template>
   <section id="page-index">
-    <div class="logo">
+    <div class="logo" :class="brandName">
       <img
         class="image is-64x64 is-inline-block logo--image"
         :src="$store.state.brandLogo"
@@ -13,7 +13,7 @@
         Way of life!
       </span>
     </div>
-    <section class="hero is-primary">
+    <section class="hero is-primary" :class="brandName">
       <div class="hero-head bg-darkblue" />
       <div class="hero-body has-text-centered bg-skyblue">
         <div class="container">
@@ -104,6 +104,9 @@ export default {
       set (val) {
         this.$store.commit('sortApp', val)
       }
+    },
+    brandName () {
+      return this.$store.state.brandName
     }
   },
   mounted () {
@@ -168,7 +171,6 @@ export default {
 @import '../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css';
   #page-index {
     .logo {
-      font-family: "SuzukiPRORegular";
       &--image {
         position: absolute;
         left: .5rem;
@@ -184,7 +186,6 @@ export default {
       }
     }
     .hero {
-      font-family: "SuzukiPRORegular";
       &-head,
       &-foot {
         height: 5rem;
@@ -194,6 +195,9 @@ export default {
           line-height: 5rem;
         }
       }
+    }
+    .Suzuki {
+      font-family: "SuzukiPRORegular";
     }
   }
 </style>
