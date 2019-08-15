@@ -160,6 +160,7 @@ export default {
           window.location.href = appItem.google_play_link
           break
         default:
+          this.$router.push(`/app/${appItem.app_slug}`)
           break
       }
     }
