@@ -70,16 +70,17 @@
     <section class="section no-padding-top">
       <ul class="list">
         <li
-          v-for="item in appList"
+          v-for="(item, index) in appList"
           :key="item.department_id"
           class="list-item is-relative"
+          @click="redirectFromApp(index)"
         >
-          <nuxt-link :to="'/'+item.app_slug">
-            <app-component
-              :app-item="item"
-              :show-distance="isSortbyDistance"
-            />
-          </nuxt-link>
+          <!-- <nuxt-link :to="'/'+item.app_slug"> -->
+          <app-component
+            :app-item="item"
+            :show-distance="isSortbyDistance"
+          />
+          <!-- </nuxt-link> -->
         </li>
       </ul>
     </section>
@@ -142,7 +143,23 @@ export default {
     }
   },
   methods: {
-
+    redirectFromApp (index) {
+      const appItem = this.appList[index]
+      const deviceType = this.$store.state.deviceType
+      switch (deviceType) {
+        case 'Desktop':
+          this.$router.push(`/${appItem.app_slug}`)
+          break
+        case 'Apple':
+          window.location.href = appItem.app_store_link
+          break
+        case 'Android':
+          window.location.href = appItem.google_play_link
+          break
+        default:
+          break
+      }
+    }
   }
 }
 </script>
