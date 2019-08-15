@@ -6,7 +6,10 @@
         :src="$store.state.brandLogo"
         alt="logo"
       >
-      <span class="image is-64x64 is-size-5 logo--text" style="letter-spacing: -1px;">
+      <span
+        class="image is-64x64 is-size-5 logo--text"
+        style="letter-spacing: -1px;"
+      >
         Way of life!
       </span>
     </div>
@@ -33,7 +36,9 @@
           <span class="icon is-large is-size-4">
             <font-awesome-icon icon="paper-plane" class="color-skyblue" />
           </span>
-          <h3 class="title is-size-3 is-inline-block padding-left-1 color-skyblue">
+          <h3
+            class="title is-size-3 is-inline-block padding-left-1 color-skyblue"
+          >
             Vis nærmeste først
           </h3>
           <span class="is-pulled-right" style="padding-top: 1rem;">
@@ -51,7 +56,11 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input class="input is-large is-size-4" type="text" placeholder="Indtast postnummer">
+          <input
+            class="input is-large is-size-4"
+            type="text"
+            placeholder="Indtast postnummer"
+          >
           <span class="icon is-large is-size-4 is-left">
             <font-awesome-icon icon="search" class="color-skyblue" />
           </span>
@@ -96,7 +105,11 @@ export default {
   mounted () {
     let deviceType = 'Desktop'
     if (this.$device.isMobile || this.$device.isTablet) {
-      if (this.$device.isIos) { deviceType = 'Apple' } else { deviceType = 'Android' }
+      if (this.$device.isIos) {
+        deviceType = 'Apple'
+      } else {
+        deviceType = 'Android'
+      }
     } else if (this.$device.isDesktop) { deviceType = 'Desktop' }
     this.$store.commit('setDevice', deviceType)
 

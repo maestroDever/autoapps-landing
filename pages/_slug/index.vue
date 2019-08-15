@@ -7,7 +7,11 @@
 
       <div class="app-icon-wrapper">
         <figure class="image is-128x128">
-          <img class="box is-paddingless" :src="appItem.app_icon" alt="App Icon">
+          <img
+            class="box is-paddingless"
+            :src="appItem.app_icon"
+            alt="App Icon"
+          >
         </figure>
         <div class="app-name">
           {{ appItem.app_name }}

@@ -29,7 +29,9 @@
       <p class="subtitle">
         {{ appItem.company_name }}
         <br>
-        {{ appItem.department_info.zip }} {{ appItem.department_info.address }} {{ appItem.department_info.city }}
+        {{ appItem.department_info.zip }}
+        {{ appItem.department_info.address }}
+        {{ appItem.department_info.city }}
         <span v-if="showDistance" class="is-pulled-right">
           1 km
         </span>
