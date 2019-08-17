@@ -93,6 +93,26 @@ export default {
   components: {
     AppComponent
   },
+  head () {
+    return {
+      title: this.brandName,
+      meta: [
+        { name: 'image', content: this.$store.state.brandLogo },
+        { itemprop: 'name', content: this.brandName },
+        { itemprop: 'description', content: process.env.npm_package_description },
+        { itemprop: 'image', content: this.$store.state.brandLogo },
+        { property: 'og:title', content: this.brandName },
+        { property: 'og:description', content: process.env.npm_package_description },
+        { property: 'og:image', content: this.$store.state.brandLogo },
+        { property: 'og:url', content: this.$route.fullPath },
+        { property: 'og:site_name', content: this.brandName },
+        { property: 'og:locale', content: 'da_DK' },
+        { property: 'fb:admins', content: '1061564169' },
+        { property: 'fb:app_id', content: '2307210935983207' },
+        { property: 'og:type', content: 'website' }
+      ]
+    }
+  },
   computed: {
     appList () {
       return this.$store.getters.appList
