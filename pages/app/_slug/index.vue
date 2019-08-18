@@ -83,7 +83,7 @@ export default {
     }
   },
   created () {
-    axios.get('https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/apps/uaand')
+    axios.get('https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/apps/' + this.slug)
       .then((res) => {
         this.appItem = res.data
       })
