@@ -21,7 +21,8 @@
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0",
     "nuxt-device-detect": "^1.1.5",
-    "nuxt-fontawesome": "^0.4.0"
+    "nuxt-fontawesome": "^0.4.0",
+    "qrcode.vue": "^1.6.2"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^1.0.1",

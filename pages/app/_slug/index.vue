@@ -53,16 +53,25 @@
         ent appen ved at scanne QR koden med din smartphone
       </div>
       <div class="column is-full-desktop">
-        <button class="button light">
+        <button
+          class="button"
+          :class="{'active': qrFor === 'ios'}"
+          @click="setQR('ios')"
+        >
           iOS
         </button>
-        <button class="button dark">
+        <button
+          class="button"
+          :class="{'active': qrFor === 'android'}"
+          @click="setQR('android')"
+        >
           Android
         </button>
       </div>
       <div class="column is-full-desktop is-flex" style="justify-content: center;">
         <figure class="image is-128x128">
-          <img src="/qr-code.png" alt="QR code">
+          <!-- <img src="/qr-code.png" alt="QR code"> -->
+          <qrcode-vue :value="qrFor === 'ios' ? appItem.app_store_link : appItem.google_play_link" size="128" level="H" />
         </figure>
       </div>
     </div>
@@ -71,13 +80,18 @@
 
 <script>
 import axios from 'axios'
+import QrcodeVue from 'qrcode.vue'
 
 export default {
+  components: {
+    QrcodeVue
+  },
   data () {
     return {
       slug: this.$route.params.slug,
       appItem: {},
-      dashboardImage: ''
+      dashboardImage: '',
+      qrFor: 'ios'
     }
   },
   computed: {
@@ -101,6 +115,11 @@ export default {
       this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
       i = (i + 1) % this.appItem.departments.length
     }, 10000)
+  },
+  methods: {
+    setQR (val) {
+      this.qrFor = val
+    }
   }
 }
 </script>
@@ -199,10 +218,7 @@ export default {
     font-size: 1.6rem;
     margin: .4rem;
 
-    &.light {
-      color: #000;
-    }
-    &.dark {
+    &:not(.active) {
       background-color: #444;
       color: #fff;
       border: none;
