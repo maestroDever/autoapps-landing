@@ -9,7 +9,9 @@
 
       <div class="dashboard-image">
         <figure class="image">
-          <img src="https://imgplaceholder.com/320x768" alt="placeholder">
+          <transition name="fade" :appear="true" mode="out-in">
+            <img :key="dashboardImage" :src="dashboardImage" alt="">
+          </transition>
         </figure>
       </div>
 
@@ -25,7 +27,7 @@
           {{ appItem.app_name }}
         </div>
         <div class="company-name">
-          <!-- {{ appItem.departments[0].company_name }} -->
+          {{ companyName }}
         </div>
       </div>
     </div>
@@ -74,19 +76,31 @@ export default {
   data () {
     return {
       slug: this.$route.params.slug,
-      appItem: {}
+      appItem: {},
+      dashboardImage: ''
     }
   },
   computed: {
     appList () {
       return this.$store.state.myApps
+    },
+    companyName () {
+      return this.appItem.departments && this.appItem.departments[0].company_name
     }
   },
   created () {
     axios.get('https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/apps/' + this.slug)
       .then((res) => {
         this.appItem = res.data
+        this.dashboardImage = this.appItem.departments[0].info.dashboard_background_image
       })
+  },
+  mounted () {
+    let i = 1
+    setInterval(() => {
+      this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
+      i = (i + 1) % this.appItem.departments.length
+    }, 10000)
   }
 }
 </script>
@@ -126,6 +140,11 @@ export default {
 
     .image {
       width: 320px;
+      height: 100%;
+
+      img {
+        height: 100%;
+      }
     }
     @media screen and (max-width: 400px) {
       top: 90px;
