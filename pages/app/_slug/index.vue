@@ -1,10 +1,6 @@
 <template>
   <section class="section is-paddingless has-text-centered app-wrapper">
     <div class="body">
-      <nuxt-link to="/" class="back-button">
-        Back to home
-      </nuxt-link>
-
       <div class="bg-image">
         <figure class="image">
           <img src="/iphone-frame.png" alt="iPhone-Frame">
