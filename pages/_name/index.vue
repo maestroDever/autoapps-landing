@@ -48,7 +48,7 @@
               type="checkbox"
               class="switch is-rounded is-medium is-info"
               name="isDistanceSort"
-              :disabled="$store.state.myLocation === null"
+              :disabled="!$store.state.myLocation.latitude"
             >
             <label for="isDistanceSort" />
           </span>
@@ -57,6 +57,7 @@
       <div class="field">
         <div class="control has-icons-left">
           <input
+            v-model="zipCode"
             class="input is-large is-size-4"
             type="text"
             placeholder="Indtast postnummer"
@@ -75,12 +76,10 @@
           class="list-item is-relative"
           @click="redirectFromApp(index)"
         >
-          <!-- <nuxt-link :to="'/'+item.app_slug"> -->
           <app-component
             :app-item="item"
             :show-distance="isSortbyDistance"
           />
-          <!-- </nuxt-link> -->
         </li>
       </ul>
     </section>
@@ -88,10 +87,16 @@
 </template>
 
 <script>
-import AppComponent from '../components/AppComponent.vue'
+import AppComponent from '../../components/AppComponent.vue'
 export default {
   components: {
     AppComponent
+  },
+  data () {
+    return {
+      brandName: this.$route.params.name,
+      zipCode: ''
+    }
   },
   head () {
     return {
@@ -121,15 +126,13 @@ export default {
       get () {
         return this.$store.state.isSort
       },
-      set (val) {
+      set (e, val) {
         this.$store.commit('sortApp', val)
       }
-    },
-    brandName () {
-      return this.$store.state.brandName
     }
   },
   mounted () {
+    this.$store.dispatch('getAppList', this.brandName)
     let deviceType = 'Desktop'
     if (this.$device.isMobile || this.$device.isTablet) {
       if (this.$device.isIos) {
@@ -142,27 +145,34 @@ export default {
 
     if (navigator.geolocation) {
       const locationTimeout = setTimeout(() => {
-        this.$store.commit('setLocation', null)
+        this.$store.commit('setLocation', {
+          latitude: '',
+          longitude: ''
+        })
       }, 10000)
 
       navigator.geolocation.getCurrentPosition((position) => {
         clearTimeout(locationTimeout)
-        console.log('position', position)
 
         this.$store.commit('setLocation', {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
 
-        this.$store.dispatch('getAppList')
         this.isSortbyDistance = true
       }, () => {
         clearTimeout(locationTimeout)
-        this.$store.commit('setLocation', null)
+        this.$store.commit('setLocation', {
+          latitude: '',
+          longitude: ''
+        })
       })
     } else {
       // Fallback for no geolocation
-      this.$store.commit('setLocation', null)
+      this.$store.commit('setLocation', {
+        latitude: '',
+        longitude: ''
+      })
     }
   },
   methods: {
@@ -189,7 +199,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css';
+  @import '../../node_modules/bulma-extensions/dist/css/bulma-extensions.min.css';
   #page-index {
     .logo {
       &--image {

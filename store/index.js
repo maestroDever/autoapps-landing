@@ -4,7 +4,10 @@ export const state = () => ({
   brandName: '',
   brandLogo: '',
   myApps: [],
-  myLocation: null,
+  myLocation: {
+    latitude: '',
+    longitude: ''
+  },
   deviceType: null,
   isSort: false
 })
@@ -27,16 +30,10 @@ export const mutations = {
 }
 
 export const actions = {
-  nuxtServerInit ({ commit }) {
-    return axios.get('http://139.162.255.138/backend/api/landing/suzuki/apps')
-      .then((res) => {
-        commit('setAppList', res.data)
-      })
-  },
-  getAppList ({ state, commit }) {
+  getAppList ({ state, commit }, payLoad) {
     const lat = state.myLocation.latitude
     const lng = state.myLocation.longitude
-    const url = `https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/suzuki/apps?lat=${lat}&lon=${lng}`
+    const url = `https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/${payLoad}/apps?lat=${lat}&lon=${lng}`
     return axios.get(url)
       .then((res) => {
         commit('setAppList', res.data)
