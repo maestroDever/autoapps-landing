@@ -33,7 +33,7 @@
         {{ appItem.department_info.address }}
         {{ appItem.department_info.city }}
         <span v-if="showDistance" class="is-pulled-right">
-          {{ appItem.distance | toFixed }}
+          {{ appItem.distance | toFixed }}km
         </span>
       </p>
     </div>
