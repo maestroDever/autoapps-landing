@@ -131,8 +131,16 @@ export default {
       }
     }
   },
+  watch: {
+    zipCode (value) {
+      this.$store.dispatch('getAppList', {
+        name: this.brandName,
+        zip: value
+      })
+    }
+  },
   mounted () {
-    this.$store.dispatch('getAppList', this.brandName)
+    this.$store.dispatch('getAppList', { name: this.brandName })
     let deviceType = 'Desktop'
     if (this.$device.isMobile || this.$device.isTablet) {
       if (this.$device.isIos) {

@@ -33,8 +33,17 @@ export const actions = {
   getAppList ({ state, commit }, payLoad) {
     const lat = state.myLocation.latitude
     const lng = state.myLocation.longitude
-    const url = `https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/${payLoad}/apps?lat=${lat}&lon=${lng}`
-    return axios.get(url)
+    const url = `https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/${payLoad.name}/apps`
+    return axios.get(url, {
+      params: payLoad.zip ? {
+        lat,
+        lng,
+        zip: payLoad.zip
+      } : {
+        lat,
+        lng
+      }
+    })
       .then((res) => {
         commit('setAppList', res.data)
       })
