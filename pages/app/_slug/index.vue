@@ -143,11 +143,13 @@ export default {
     window.addEventListener('resize', this.handleResize)
     this.handleResize()
     this.dashboardImage = this.appItem.departments[0].info.dashboard_background_image
-    // let i = 1
-    // setInterval(() => {
-    //   this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
-    //   i = (i + 1) % this.appItem.departments.length
-    // }, 10000)
+    if (this.appItem.departments.length > 1) {
+      let i = 1
+      setInterval(() => {
+        this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
+        i = (i + 1) % this.appItem.departments.length
+      }, 10000)
+    }
   },
   methods: {
     setQR (val) {
