@@ -1,34 +1,29 @@
 <template>
   <section class="section is-paddingless has-text-centered app-wrapper">
     <div class="body">
-      <div class="bg-image">
+      <div class="app-image-wrapper">
         <figure class="image">
-          <img src="/iphone-frame.png" alt="iPhone-Frame">
-        </figure>
-      </div>
-
-      <div class="dashboard-image">
-        <figure class="image">
+          <img v-if="window.width >= 640" src="/graphics_iphone_2x.png" alt="iPhone-Frame">
+          <img v-else src="/graphics_iphone.png" alt="iPhone-Frame">
           <transition name="fade" :appear="true" mode="out-in">
-            <img :key="dashboardImage" :src="dashboardImage" alt="">
+            <img :key="dashboardImage" class="dashboard-image" :src="dashboardImage" alt="">
           </transition>
+          <div class="app-icon-wrapper">
+            <figure class="image is-100x100">
+              <img
+                class="box is-paddingless"
+                :src="appItem.app_icon"
+                alt="App Icon"
+              >
+            </figure>
+            <div class="app-name">
+              {{ appItem.app_name }}
+            </div>
+            <div class="company-name">
+              {{ companyName }}
+            </div>
+          </div>
         </figure>
-      </div>
-
-      <div class="app-icon-wrapper">
-        <figure class="image is-100x100">
-          <img
-            class="box is-paddingless"
-            :src="appItem.app_icon"
-            alt="App Icon"
-          >
-        </figure>
-        <div class="app-name">
-          {{ appItem.app_name }}
-        </div>
-        <div class="company-name">
-          {{ companyName }}
-        </div>
       </div>
     </div>
     <div class="footer" style="padding-bottom: 2rem;">
@@ -90,7 +85,11 @@ export default {
     return {
       slug: this.$route.params.slug,
       dashboardImage: '',
-      qrFor: 'ios'
+      qrFor: 'ios',
+      window: {
+        width: 0,
+        height: 0
+      }
     }
   },
   computed: {
@@ -141,94 +140,80 @@ export default {
     }
   },
   mounted () {
+    window.addEventListener('resize', this.handleResize)
+    this.handleResize()
     this.dashboardImage = this.appItem.departments[0].info.dashboard_background_image
-    let i = 1
-    setInterval(() => {
-      this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
-      i = (i + 1) % this.appItem.departments.length
-    }, 10000)
+    // let i = 1
+    // setInterval(() => {
+    //   this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
+    //   i = (i + 1) % this.appItem.departments.length
+    // }, 10000)
   },
   methods: {
     setQR (val) {
       this.qrFor = val
+    },
+    handleResize () {
+      this.window.width = window.innerWidth
+      this.window.height = window.innerHeight
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .body {
-    height: 75vh;
-    overflow: hidden;
-  }
-  .bg-image {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 75vh;
-    overflow: hidden;
-    z-index: 2;
+  .app-image-wrapper {
 
     .image {
-      width: 400px;
-    }
-
-    @media screen and (max-width: 400px) {
-      .image {
-        width: 320px;
-      }
-    }
-  }
-
-  .dashboard-image {
-    position: absolute;
-    top: 110px;
-    height: calc(75vh - 110px);
-    left: 50%;
-    transform: translateX(-50%);
-    overflow: hidden;
-
-    .image {
-      width: 320px;
-      height: 100%;
+      position: relative;
+      overflow: hidden;
 
       img {
-        height: 100%;
+        width: auto;
+        margin: auto;
       }
-    }
-    @media screen and (max-width: 400px) {
-      top: 90px;
-      height: calc(75vh - 90px);
-      .image {
-        width: 252px;
+
+      .dashboard-image {
+        position: absolute;
+        top: 185px;
+        width: 510px;
+        left: 50%;
+        transform: translateX(-50%);
+
+        @media screen and (max-width: 640px) {
+          top: 92px;
+          width: 255px;
+        }
       }
-    }
-  }
+      .app-icon-wrapper {
+        position: absolute;
+        top: 75%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-  .app-icon-wrapper {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    transform: translate(-50%, 0);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+        @media screen and (max-width: 640px) {
+          top: 65%;
+        }
 
-    .is-100x100 {
-      width: 100px;
-      height: 100px;
-    }
-    .app-name {
-      color: rgb(0, 0, 0);
-      font-size: 2.2rem;
-      padding-top: 1rem;
-    }
+        .is-100x100 {
+          width: 100px;
+          height: 100px;
+        }
+        .app-name {
+          color: rgb(0, 0, 0);
+          font-size: 2.2rem;
+          padding-top: 1rem;
+        }
 
-    .company-name {
-      color: rgb(0, 0, 0);
-      font-size: 1.5rem;
+        .company-name {
+          color: rgb(0, 0, 0);
+          font-size: 1.5rem;
+        }
+      }
     }
   }
 
