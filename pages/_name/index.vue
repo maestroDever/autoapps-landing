@@ -274,5 +274,10 @@ export default {
     .Suzuki {
       font-family: "SuzukiPRORegular";
     }
+
+    .pagination {
+      justify-content: center;
+      font-size: 1.4rem;
+    }
   }
 </style>
