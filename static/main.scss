@@ -64,9 +64,9 @@ body {
 }
 
 @media screen and (min-width: 1024px) {
-  .section {
-    padding-right: 20rem;
-    padding-left: 20rem;
+  .fix-1024 {
+    width: 1024px;
+    margin: auto;
   }
 }
 

@@ -1,6 +1,6 @@
 <template>
   <section id="page-index">
-    <div class="logo" :class="brandName">
+    <div class="logo is-relative fix-1024" :class="brandName">
       <img
         class="image is-64x64 is-inline-block logo--image"
         :src="$store.state.brandLogo"
@@ -30,7 +30,7 @@
         </div>
       </div>
     </section>
-    <section class="section small-padding" style="padding-bottom: .75rem;">
+    <section class="section small-padding fix-1024" style="padding-bottom: .75rem;">
       <div class="field">
         <div class="control">
           <span class="icon is-large is-size-4">
@@ -69,7 +69,7 @@
         </div>
       </div>
     </section>
-    <section class="section no-padding-top">
+    <section class="section no-padding-top fix-1024">
       <ul class="list">
         <li
           v-for="(item, index) in appList"
