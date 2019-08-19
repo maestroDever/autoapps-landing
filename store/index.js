@@ -9,7 +9,8 @@ export const state = () => ({
     longitude: ''
   },
   deviceType: null,
-  isSort: false
+  isSort: false,
+  total: 1
 })
 
 export const mutations = {
@@ -17,6 +18,7 @@ export const mutations = {
     state.brandName = data.brand_name
     state.brandLogo = data.brand_logo
     state.myApps = [...data.departments]
+    state.total = data.total
   },
   setLocation (state, data) {
     state.myLocation = data
@@ -32,16 +34,20 @@ export const mutations = {
 export const actions = {
   getAppList ({ state, commit }, payLoad) {
     const lat = state.myLocation.latitude
-    const lng = state.myLocation.longitude
+    const lon = state.myLocation.longitude
     const url = `https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/${payLoad.name}/apps`
     return axios.get(url, {
       params: payLoad.zip ? {
         lat,
-        lng,
+        lon,
+        per_page: 5,
+        offset: (payLoad.pageNum - 1) * 5,
         zip: payLoad.zip
       } : {
         lat,
-        lng
+        lon,
+        per_page: 5,
+        offset: (payLoad.pageNum - 1) * 5
       }
     })
       .then((res) => {

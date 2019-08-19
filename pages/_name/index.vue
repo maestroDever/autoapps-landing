@@ -83,19 +83,27 @@
         </li>
       </ul>
     </section>
+    <v-pagination
+      v-model="curPage"
+      :page-count="pageCount"
+      @input="gotoPage"
+    />
   </section>
 </template>
 
 <script>
+import vPagination from 'vue-plain-pagination'
 import AppComponent from '../../components/AppComponent.vue'
 export default {
   components: {
-    AppComponent
+    AppComponent,
+    vPagination
   },
   data () {
     return {
       brandName: this.$route.params.name,
-      zipCode: ''
+      zipCode: '',
+      curPage: 1
     }
   },
   head () {
@@ -126,21 +134,25 @@ export default {
       get () {
         return this.$store.state.isSort
       },
-      set (e, val) {
+      set (val) {
         this.$store.commit('sortApp', val)
       }
+    },
+    pageCount () {
+      return Math.ceil(this.$store.state.total / 5)
     }
   },
   watch: {
     zipCode (value) {
+      this.curPage = 1
       this.$store.dispatch('getAppList', {
         name: this.brandName,
-        zip: value
+        zip: value,
+        pageNum: 1
       })
     }
   },
   mounted () {
-    this.$store.dispatch('getAppList', { name: this.brandName })
     let deviceType = 'Desktop'
     if (this.$device.isMobile || this.$device.isTablet) {
       if (this.$device.isIos) {
@@ -166,7 +178,10 @@ export default {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude
         })
-
+        this.$store.dispatch('getAppList', {
+          name: this.brandName,
+          pageNum: 1
+        })
         this.isSortbyDistance = true
       }, () => {
         clearTimeout(locationTimeout)
@@ -182,6 +197,10 @@ export default {
         longitude: ''
       })
     }
+    this.$store.dispatch('getAppList', {
+      name: this.brandName,
+      pageNum: 1
+    })
   },
   methods: {
     redirectFromApp (index) {
@@ -201,6 +220,17 @@ export default {
           this.$router.push(`/app/${appItem.app_slug}`)
           break
       }
+    },
+    gotoPage (pageNum) {
+      this.$store.dispatch('getAppList',
+        this.zipCode ? {
+          name: this.brandName,
+          pageNum,
+          zip: this.zipCode
+        } : {
+          name: this.brandName,
+          pageNum
+        })
     }
   }
 }
