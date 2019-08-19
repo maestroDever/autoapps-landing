@@ -93,6 +93,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import vPagination from 'vue-plain-pagination'
 import AppComponent from '../../components/AppComponent.vue'
 export default {
@@ -105,26 +106,6 @@ export default {
       brandName: this.$route.params.name,
       zipCode: '',
       curPage: 1
-    }
-  },
-  head () {
-    return {
-      title: this.brandName,
-      meta: [
-        { name: 'image', content: this.$store.state.brandLogo },
-        { itemprop: 'name', content: this.brandName },
-        { itemprop: 'description', content: process.env.npm_package_description },
-        { itemprop: 'image', content: this.$store.state.brandLogo },
-        { property: 'og:title', content: this.brandName },
-        { property: 'og:description', content: process.env.npm_package_description },
-        { property: 'og:image', content: this.$store.state.brandLogo },
-        { property: 'og:url', content: this.$route.fullPath },
-        { property: 'og:site_name', content: this.brandName },
-        { property: 'og:locale', content: 'da_DK' },
-        { property: 'fb:admins', content: '1061564169' },
-        { property: 'fb:app_id', content: '2307210935983207' },
-        { property: 'og:type', content: 'website' }
-      ]
     }
   },
   computed: {
@@ -151,6 +132,34 @@ export default {
         zip: value,
         pageNum: 1
       })
+    }
+  },
+  asyncData ({ params }) {
+    return axios.get(`http://139.162.255.138/backend/api/landing/${params.name}/apps`)
+      .then((res) => {
+        return {
+          brandLogo: res.data.brand_logo
+        }
+      })
+  },
+  head () {
+    return {
+      title: this.brandName,
+      meta: [
+        { name: 'image', content: this.brandLogo },
+        { itemprop: 'name', content: this.brandName },
+        { itemprop: 'description', content: process.env.npm_package_description },
+        { itemprop: 'image', content: this.brandLogo },
+        { property: 'og:title', content: this.brandName },
+        { property: 'og:description', content: process.env.npm_package_description },
+        { property: 'og:image', content: this.brandLogo },
+        { property: 'og:url', content: this.$route.fullPath },
+        { property: 'og:site_name', content: this.brandName },
+        { property: 'og:locale', content: 'da_DK' },
+        { property: 'fb:admins', content: '1061564169' },
+        { property: 'fb:app_id', content: '2307210935983207' },
+        { property: 'og:type', content: 'website' }
+      ]
     }
   },
   mounted () {

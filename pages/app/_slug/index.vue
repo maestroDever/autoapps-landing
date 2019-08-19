@@ -89,7 +89,6 @@ export default {
   data () {
     return {
       slug: this.$route.params.slug,
-      appItem: {},
       dashboardImage: '',
       qrFor: 'ios'
     }
@@ -105,43 +104,44 @@ export default {
       return this.appItem.google_play_link && this.appItem.google_play_link.match(/(?<=[?&]id=)[^&]+/g)[0]
     }
   },
+  asyncData ({ params }) {
+    return axios.get('http://139.162.255.138/backend/api/landing/apps/' + params.slug)
+      .then((res) => {
+        return { appItem: res.data }
+      })
+  },
   head () {
+    const appItem = this.appItem
     return {
-      title: this.appItem.app_name,
+      title: appItem.app_name,
       meta: [
-        { name: 'description', content: this.appItem.description },
-        { name: 'image', content: this.appItem.app_icon },
-        { itemprop: 'name', content: this.appItem.app_name },
-        { itemprop: 'description', content: this.appItem.description },
-        { itemprop: 'image', content: this.appItem.app_icon },
+        { name: 'description', content: appItem.description },
+        { name: 'image', content: appItem.app_icon },
+        { itemprop: 'name', content: appItem.app_name },
+        { itemprop: 'description', content: appItem.description },
+        { itemprop: 'image', content: appItem.app_icon },
         { name: 'apple-itunes-app', content: `app-id=${this.appStoreId}` },
         { name: 'google-play-app', content: this.googlePlayId },
-        { property: 'og:title', content: this.appItem.app_name },
-        { property: 'og:description', content: this.appItem.description },
-        { property: 'og:image', content: this.appItem.app_icon },
+        { property: 'og:title', content: appItem.app_name },
+        { property: 'og:description', content: appItem.description },
+        { property: 'og:image', content: appItem.app_icon },
         { property: 'og:url', content: this.$route.fullPath },
-        { property: 'og:site_name', content: this.appItem.app_name },
+        { property: 'og:site_name', content: appItem.app_name },
         { property: 'og:locale', content: 'da_DK' },
         { property: 'fb:admins', content: '1061564169' },
         { property: 'fb:app_id', content: '2307210935983207' },
         { property: 'og:type', content: 'website' },
         { property: 'al:ios:app_store_id', content: `app-id=${this.appStoreId}` },
-        { property: 'al:ios:app_name', content: this.appItem.app_name },
-        { property: 'al:ios:url', content: `${this.appItem.app_slug}://` },
+        { property: 'al:ios:app_name', content: appItem.app_name },
+        { property: 'al:ios:url', content: `${appItem.app_slug}://` },
         { property: 'al:android:package', content: this.googlePlayId },
-        { property: 'al:android:app_name', content: this.appItem.app_name },
-        { property: 'al:android:url', content: `${this.appItem.app_slug}://` }
+        { property: 'al:android:app_name', content: appItem.app_name },
+        { property: 'al:android:url', content: `${appItem.app_slug}://` }
       ]
     }
   },
-  created () {
-    axios.get('https://cors-anywhere.herokuapp.com/http://139.162.255.138/backend/api/landing/apps/' + this.slug)
-      .then((res) => {
-        this.appItem = res.data
-        this.dashboardImage = this.appItem.departments[0].info.dashboard_background_image
-      })
-  },
   mounted () {
+    this.dashboardImage = this.appItem.departments[0].info.dashboard_background_image
     let i = 1
     setInterval(() => {
       this.dashboardImage = this.appItem.departments[i].info.dashboard_background_image
