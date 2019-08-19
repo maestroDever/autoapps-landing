@@ -101,7 +101,7 @@ export default {
       return this.appItem.app_store_link && this.appItem.app_store_link.match(/id([\d]{10,})/g)[0]
     },
     googlePlayId () {
-      return this.appItem.google_play_link && this.appItem.google_play_link.match(/(?<=[?&]id=)[^&]+/g)[0]
+      return this.appItem.google_play_link && this.appItem.google_play_link.match(/id=([^&]+)/g)[0]
     }
   },
   asyncData ({ params }) {
