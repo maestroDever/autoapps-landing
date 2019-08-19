@@ -41,9 +41,10 @@
           >
             Vis nærmeste først
           </h3>
-          <span class="is-pulled-right" style="padding-top: 1rem;">
+          <span class="is-pulled-right" style="padding-top: 1rem;" @click="test">
             <input
               id="isDistanceSort"
+              ref="sortChecker"
               v-model="isSortbyDistance"
               type="checkbox"
               class="switch is-rounded is-medium is-info"
@@ -231,6 +232,11 @@ export default {
           name: this.brandName,
           pageNum
         })
+    },
+    test () {
+      if (this.$refs.sortChecker.hasAttribute('disabled')) {
+        alert('Please allow browser to detect your location')
+      }
     }
   }
 }
