@@ -23,6 +23,7 @@
               {{ companyName }}
             </div>
           </div>
+          <div class="gradient" />
         </figure>
       </div>
     </div>
@@ -189,6 +190,15 @@ export default {
         //   width: 255px;
         // }
       }
+      .gradient {
+        position: absolute;
+        bottom: 0;
+        width: 255px;
+        height: 270px;
+        background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.6) 100%);
+        left: 50%;
+        transform: translateX(-50%);
+      }
       .app-icon-wrapper {
         position: absolute;
         // top: 75%;
@@ -199,6 +209,7 @@ export default {
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        z-index: 2;
 
         // @media screen and (max-width: 640px) {
         //   top: 65%;
@@ -244,7 +255,7 @@ export default {
       margin: auto;
 
       img {
-        margin: 1rem 1rem;
+        margin: 1rem;
         cursor: pointer;
         max-width: 20rem;
       }
