@@ -9,7 +9,7 @@
             <img :key="dashboardImage" class="dashboard-image" :src="dashboardImage" alt="">
           </transition>
           <div class="app-icon-wrapper">
-            <figure class="image is-100x100">
+            <figure class="image is-80x80">
               <img
                 class="box is-paddingless"
                 :src="appItem.app_icon"
@@ -27,7 +27,7 @@
         </figure>
       </div>
     </div>
-    <div class="footer" style="padding-bottom: 2rem;">
+    <div class="footer">
       <div class="text footer--title">
         Få personlig service med vores app. Hent appen for at komme i gang.
       </div>
@@ -45,7 +45,7 @@
     </div>
 
     <div v-if="deviceType === 'Desktop' || !deviceType" class="post-footer">
-      <div class="text">
+      <div class="text has-text-weight-bold">
         Hent appen ved at scanne QR koden med din smartphone
       </div>
       <div class="column is-full-desktop">
@@ -189,17 +189,11 @@ export default {
 
       .dashboard-image {
         position: absolute;
-        // top: 185px;
-        // width: 510px;
         top: 92px;
         width: 255px;
         left: 50%;
         transform: translateX(-50%);
 
-        // @media screen and (max-width: 640px) {
-        //   top: 92px;
-        //   width: 255px;
-        // }
       }
       .gradient {
         position: absolute;
@@ -212,7 +206,6 @@ export default {
       }
       .app-icon-wrapper {
         position: absolute;
-        // top: 75%;
         top: 65%;
         left: 50%;
         transform: translate(-50%, 0);
@@ -222,31 +215,33 @@ export default {
         justify-content: center;
         z-index: 2;
 
-        // @media screen and (max-width: 640px) {
-        //   top: 65%;
-        // }
-
-        .is-100x100 {
-          width: 100px;
-          height: 100px;
+        .is-80x80 {
+          width: 80px;
+          height: 80px;
         }
         .app-name {
-          color: rgb(0, 0, 0);
-          font-size: 2.2rem;
-          padding-top: 1rem;
+          font-size: 1.6rem;
+          padding-top: 1.6rem;
           color: #fff;
+          text-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+          font-weight: bold;
+          line-height: 18px;
         }
 
         .company-name {
-          color: rgb(0, 0, 0);
-          font-size: 1.5rem;
+          font-size: 1.2rem;
+          padding-top: 1rem;
           color: #fff;
+          text-shadow: 0 2px 4px 0 rgba(0,0,0,0.3);
+          line-height: 14px;
         }
       }
     }
   }
 
   .footer {
+    padding-bottom: 4.5rem;
+
     & > * {
       margin: auto;
     }
@@ -281,7 +276,7 @@ export default {
     background-color: #111;
     color: #fff;
     text-align: center;
-    padding: 1rem 1.5rem 6rem;
+    padding: 1rem 1.5rem 20rem;
 
     .text {
       @media screen and (min-width: 360px) {
@@ -291,13 +286,15 @@ export default {
     }
 
     .button {
-      width: 18rem;
+      width: 12rem;
       height: 3.6rem;
-      font-size: 1.6rem;
+      font-size: 1.4rem;
       margin: .4rem;
+      font-weight: bold;
+      border-radius: 8px;
 
       &:not(.active) {
-        background-color: #444;
+        background-color: rgba(255,255,255,0.2);
         color: #fff;
         border: none;
       }
