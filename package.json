@@ -18,10 +18,10 @@
     "@fortawesome/vue-fontawesome": "^0.1.6",
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/bulma": "^1.2.1",
+    "@nuxtjs/device": "^1.2.2",
     "bulma-extensions": "^6.2.7",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.0.0",
-    "nuxt-device-detect": "^1.1.5",
     "nuxt-fontawesome": "^0.4.0",
     "vue-plain-pagination": "^0.3.0"
   },
