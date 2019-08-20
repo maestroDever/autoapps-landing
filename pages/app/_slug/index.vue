@@ -3,8 +3,8 @@
     <div class="body">
       <div class="app-image-wrapper">
         <figure class="image">
-          <img v-if="window.width >= 640" src="/graphics_iphone_2x.png" alt="iPhone-Frame">
-          <img v-else src="/graphics_iphone.png" alt="iPhone-Frame">
+          <!-- <img v-if="window.width >= 640" src="/graphics_iphone_2x.png" alt="iPhone-Frame"> -->
+          <img src="/graphics_iphone.png" alt="iPhone-Frame">
           <transition name="fade" :appear="true" mode="out-in">
             <img :key="dashboardImage" class="dashboard-image" :src="dashboardImage" alt="">
           </transition>
@@ -27,25 +27,25 @@
       </div>
     </div>
     <div class="footer" style="padding-bottom: 2rem;">
-      <div class="text">
+      <div class="text footer--title">
         Få personlig service med vores app. Hent appen for at komme i gang.
       </div>
       <div class="buttons">
         <a :href="appItem.app_store_link">
-          <img src="/app-store-1.png" alt="App Store Button">
+          <img class="store-link" src="/app-store-1.png" alt="App Store Button">
         </a>
         <a :href="appItem.google_play_link">
-          <img src="/google-play-store-1.png" alt="Google Play Button">
+          <img class="store-link" src="/google-play-store-1.png" alt="Google Play Button">
         </a>
       </div>
-      <div class="text">
+      <div class="text description">
         {{ appItem.description }}
       </div>
     </div>
 
     <div class="post-footer">
       <div class="text">
-        ent appen ved at scanne QR koden med din smartphone
+        Hent appen ved at scanne QR koden med din smartphone
       </div>
       <div class="column is-full-desktop">
         <button
@@ -177,19 +177,22 @@ export default {
 
       .dashboard-image {
         position: absolute;
-        top: 185px;
-        width: 510px;
+        // top: 185px;
+        // width: 510px;
+        top: 92px;
+        width: 255px;
         left: 50%;
         transform: translateX(-50%);
 
-        @media screen and (max-width: 640px) {
-          top: 92px;
-          width: 255px;
-        }
+        // @media screen and (max-width: 640px) {
+        //   top: 92px;
+        //   width: 255px;
+        // }
       }
       .app-icon-wrapper {
         position: absolute;
-        top: 75%;
+        // top: 75%;
+        top: 65%;
         left: 50%;
         transform: translate(-50%, 0);
         display: flex;
@@ -197,9 +200,9 @@ export default {
         align-items: center;
         justify-content: center;
 
-        @media screen and (max-width: 640px) {
-          top: 65%;
-        }
+        // @media screen and (max-width: 640px) {
+        //   top: 65%;
+        // }
 
         .is-100x100 {
           width: 100px;
@@ -209,39 +212,47 @@ export default {
           color: rgb(0, 0, 0);
           font-size: 2.2rem;
           padding-top: 1rem;
+          color: #fff;
         }
 
         .company-name {
           color: rgb(0, 0, 0);
           font-size: 1.5rem;
+          color: #fff;
         }
       }
     }
   }
 
-  .buttons {
-    justify-content: center;
-    margin: 3rem 0;
+  .footer {
+    & > * {
+      margin: auto;
+    }
 
-    img {
-      margin: 1rem 1rem;
-      cursor: pointer;
+    &--title {
+      width: 32rem;
+    }
+
+    .description {
+      @media screen and (min-width: 400px) {
+        width: 40rem;
+      }
+    }
+
+    .buttons {
+      justify-content: center;
+      margin: auto;
+
+      img {
+        margin: 1rem 1rem;
+        cursor: pointer;
+        max-width: 20rem;
+      }
     }
   }
+
   .text {
     font-size: 1.8rem;
-  }
-  .button {
-    width: 18rem;
-    height: 3.6rem;
-    font-size: 1.6rem;
-    margin: .4rem;
-
-    &:not(.active) {
-      background-color: #444;
-      color: #fff;
-      border: none;
-    }
   }
 
   .post-footer {
@@ -249,5 +260,25 @@ export default {
     color: #fff;
     text-align: center;
     padding: 1rem 1.5rem 6rem;
+
+    .text {
+      @media screen and (min-width: 360px) {
+        width: 36rem;
+        margin: auto;
+      }
+    }
+
+    .button {
+      width: 18rem;
+      height: 3.6rem;
+      font-size: 1.6rem;
+      margin: .4rem;
+
+      &:not(.active) {
+        background-color: #444;
+        color: #fff;
+        border: none;
+      }
+    }
   }
 </style>
