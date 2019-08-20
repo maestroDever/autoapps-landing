@@ -66,8 +66,7 @@
       </div>
       <div class="column is-full-desktop is-flex" style="justify-content: center;">
         <figure class="image is-128x128">
-          <!-- <img src="/qr-code.png" alt="QR code"> -->
-          <qrcode-vue :value="qrFor === 'ios' ? appItem.app_store_link : appItem.google_play_link" size="128" level="H" />
+          <vue-qrcode :value="qrFor === 'ios' ? appItem.app_store_link : appItem.google_play_link" :options="{ width: 128 }" />
         </figure>
       </div>
     </div>
@@ -76,11 +75,11 @@
 
 <script>
 import axios from 'axios'
-import QrcodeVue from 'qrcode.vue'
+import VueQrcode from '@chenfengyuan/vue-qrcode'
 
 export default {
   components: {
-    QrcodeVue
+    VueQrcode
   },
   data () {
     return {
