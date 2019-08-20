@@ -27,7 +27,7 @@
         </figure>
       </div>
     </div>
-    <div class="footer" style="padding-bottom: 2rem;">
+    <div class="footer">
       <div class="text footer--title">
         Få personlig service med vores app. Hent appen for at komme i gang.
       </div>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="post-footer">
+    <div v-if="deviceType === 'Desktop' || !deviceType" class="post-footer">
       <div class="text">
         Hent appen ved at scanne QR koden med din smartphone
       </div>
@@ -89,7 +89,8 @@ export default {
       window: {
         width: 0,
         height: 0
-      }
+      },
+      deviceType: ''
     }
   },
   computed: {
@@ -150,6 +151,16 @@ export default {
         i = (i + 1) % this.appItem.departments.length
       }, 10000)
     }
+
+    let deviceType = 'Desktop'
+    if (this.$device.isMobile || this.$device.isTablet) {
+      if (this.$device.isIos) {
+        deviceType = 'Apple'
+      } else {
+        deviceType = 'Android'
+      }
+    } else if (this.$device.isDesktop) { deviceType = 'Desktop' }
+    this.deviceType = deviceType
   },
   methods: {
     setQR (val) {
@@ -236,6 +247,8 @@ export default {
   }
 
   .footer {
+    padding-bottom: 4.5rem;
+
     & > * {
       margin: auto;
     }
@@ -270,7 +283,7 @@ export default {
     background-color: #111;
     color: #fff;
     text-align: center;
-    padding: 1rem 1.5rem 6rem;
+    padding: 1rem 1.5rem 20rem;
 
     .text {
       @media screen and (min-width: 360px) {

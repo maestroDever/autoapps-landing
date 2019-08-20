@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="post-footer">
+    <div v-if="deviceType === 'Desktop' || !deviceType" class="post-footer">
       <div class="text">
         Hent appen ved at scanne QR koden med din smartphone
       </div>
@@ -89,7 +89,8 @@ export default {
       window: {
         width: 0,
         height: 0
-      }
+      },
+      deviceType: ''
     }
   },
   computed: {
@@ -150,6 +151,16 @@ export default {
         i = (i + 1) % this.appItem.departments.length
       }, 10000)
     }
+
+    let deviceType = 'Desktop'
+    if (this.$device.isMobile || this.$device.isTablet) {
+      if (this.$device.isIos) {
+        deviceType = 'Apple'
+      } else {
+        deviceType = 'Android'
+      }
+    } else if (this.$device.isDesktop) { deviceType = 'Desktop' }
+    this.deviceType = deviceType
   },
   methods: {
     setQR (val) {
