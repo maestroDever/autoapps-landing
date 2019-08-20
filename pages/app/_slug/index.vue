@@ -166,6 +166,7 @@ export default {
 
 <style lang="scss" scoped>
   .app-image-wrapper {
+    background-image: url('/tires.png');
 
     .image {
       position: relative;
