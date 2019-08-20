@@ -2,8 +2,8 @@
   "name": "autoapps-landing",
   "version": "1.0.0",
   "description": "Finding Mobile Apps - Landing Page for Auto Apps",
-  "author": "Artem Pavlov",
-  "private": true,
+  "author": "",
+  "private": false,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
